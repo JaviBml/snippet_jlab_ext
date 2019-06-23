@@ -26,9 +26,15 @@ export default extension;
 
 export const BookMarks = [
     {
-        name: 'gmo',
-        url: 'https://www.gmo.jp/en/',
-        description: 'Creating a simple JupyterLab plugin adding BookMark menu',
+        name: 'Clarin',
+        url: 'http://www.clarin.com',
+        description: 'Diario de noticias',
+        target: 'widget'
+    },
+    {
+        name: 'Ole',
+        url: 'http://www.ole.com',
+        description: 'Diario Deportivo',
         target: 'widget'
     }
 ];
@@ -90,7 +96,7 @@ namespace Private {
 
         const {commands} = app;
         let menu:Menu = new Menu({commands});
-        menu.title.label = 'BookMark';
+        menu.title.label = 'Snippets';
         BookMarks.forEach(item => menu.addItem({command: `BookMark-${item.name}:show`}));
 
         return menu;
