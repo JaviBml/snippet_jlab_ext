@@ -5,22 +5,26 @@ from IPython.core.interactiveshell import InteractiveShell
 from IPython.core.getipython import get_ipython
 
 def catalog_file(path_or_url):
+    """Helper function to extract functions and classes data from the given code file."""
     return analyze_source_code(retrieve_source_code(path_or_url))
 
 def retrieve_source_code(path_or_url):
+    """Retrieve a source code string from a file, url or string."""
 
     ipython_shell = get_ipython() or InteractiveShell()
-    if ipython_shell is not None:
-        print("# using IPython")
-        source = ipython_shell.find_user_code(path_or_url, raw=False, py_only=True, skip_encoding_cookie=True, search_ns=False)
-        tree = ast.parse(source)
-    else:
-        print("using standard Python (works only for local files)")
-        with open(path_or_url, "r") as source_file:
-            source = source_file.read()
+    source = ipython_shell.find_user_code(path_or_url, raw=False, py_only=True, skip_encoding_cookie=True, search_ns=False)
+
     return source
 
 def analyze_source_code(source):
+    """
+    Analyze the given source code (str), extracting functions and classes.
+
+    Returns:
+    --------
+      dict: with "classes" and "functions" keys. Each value is another dict with (name, docstring)
+            values.
+    """
     tree = ast.parse(source)
     print()
     analyzer = PythonCodeAnalyzer()

@@ -13,7 +13,10 @@ class SnippetsCatalogHandler(IPythonHandler):
         catalog = {}
         target_urls = self.get_query_arguments("url")
         for url in target_urls:
-            catalog[url] = catalog_file(url)
+            try:
+                catalog[url] = catalog_file(url)
+            except ValueError as e:
+                catalog[url] = str(e)
 
         self.response = catalog
         self.write_json()
