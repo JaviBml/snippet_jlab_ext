@@ -4,6 +4,9 @@ import {
 
 import {IMainMenu} from '@jupyterlab/mainmenu'
 
+import { INotebookTools, INotebookTracker } from '@jupyterlab/notebook';
+
+
 import {IFrame, ICommandPalette} from '@jupyterlab/apputils'
 
 import {Menu} from '@phosphor/widgets'
@@ -17,7 +20,7 @@ import '../style/index.css';
 const extension: JupyterLabPlugin<void> = {
   id: 'jupyterlab_myext',
   autoStart: true,
-  requires: [IMainMenu, ICommandPalette],
+  requires: [IMainMenu, ICommandPalette, INotebookTools],
   activate: activate_custom_menu
 };
 
@@ -54,23 +57,29 @@ export function activate_custom_menu(app: JupyterLab, mainMenu: IMainMenu, palet
                 if (item.target == '_blank') {
                     let win = window.open(item.url, '_blank');
                     win.focus();
-                } else if (item.target == 'widget') {
-                    if (!iframe) {
-                        iframe = new IFrame();
-                        iframe.url = item.url;
-                        iframe.id = item.name;
-                        iframe.title.label = item.name;
-                        iframe.title.closable = true;
-                        iframe.node.style.overflowY = 'auto';
-                    }
-
-                    if (iframe == null || !iframe.isAttached) {
-                        app.shell.addToMainArea(iframe);
-                        app.shell.activateById(iframe.id);
-                    } else {
-                        app.shell.activateById(iframe.id);
-                    }
+                } else {
+                    var selected_cell = Jupyter.notebook.get_selected_cell();
+                    Jupyter.notebook.edit_mode();
+                    selected_cell.code_mirror.replaceSelection(snippet_code, 'around');
                 }
+                
+                // else if (item.target == 'widget') {
+                //     if (!iframe) {
+                //         iframe = new IFrame();
+                //         iframe.url = item.url;
+                //         iframe.id = item.name;
+                //         iframe.title.label = item.name;
+                //         iframe.title.closable = true;
+                //         iframe.node.style.overflowY = 'auto';
+                //     }
+
+                //     if (iframe == null || !iframe.isAttached) {
+                //         app.shell.addToMainArea(iframe);
+                //         app.shell.activateById(iframe.id);
+                //     } else {
+                //         app.shell.activateById(iframe.id);
+                //     }
+                // }
             }
         });
     }
