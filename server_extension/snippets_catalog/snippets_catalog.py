@@ -16,6 +16,7 @@ class SnippetsCatalogHandler(IPythonHandler):
             try:
                 catalog[url] = catalog_file(url)
             except ValueError as e:
+                self.log.warn("Can't catalog file %s: %s", url, str(e))
                 catalog[url] = str(e)
 
         self.response = catalog
@@ -60,7 +61,6 @@ def load_jupyter_server_extension(nb_server_app):
     Args:
         nb_server_app (NotebookWebApplication): handle to the Notebook webserver instance.
     """
-    print('its a trap')
     web_app = nb_server_app.web_app
     host_pattern = '.*$'
     route_pattern = url_path_join(web_app.settings['base_url'], '/snippets')
