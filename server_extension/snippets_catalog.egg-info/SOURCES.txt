@@ -1,8 +1,0 @@
-README.md
-setup.py
-snippets_catalog/__init__.py
-snippets_catalog/snippets_catalog.py
-snippets_catalog.egg-info/PKG-INFO
-snippets_catalog.egg-info/SOURCES.txt
-snippets_catalog.egg-info/dependency_links.txt
-snippets_catalog.egg-info/top_level.txt
