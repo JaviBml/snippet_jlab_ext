@@ -4,8 +4,6 @@ import {
 
 import {IMainMenu} from '@jupyterlab/mainmenu'
 
-import { INotebookTools, INotebookTracker } from '@jupyterlab/notebook'
-
 import {IFrame, ICommandPalette} from '@jupyterlab/apputils'
 
 import {Menu} from '@phosphor/widgets'
@@ -19,7 +17,7 @@ import '../style/index.css';
 const extension: JupyterLabPlugin<void> = {
   id: 'jupyterlab_myext',
   autoStart: true,
-  requires: [IMainMenu, ICommandPalette, INotebookTools],
+  requires: [IMainMenu, ICommandPalette],
   activate: activate_custom_menu
 };
 
@@ -28,15 +26,9 @@ export default extension;
 
 export const BookMarks = [
     {
-        name: 'Clarin',
-        url: 'http://www.clarin.com',
-        description: 'Diario de noticias',
-        target: 'widget'
-    },
-    {
-        name: 'Ole',
-        url: 'http://www.ole.com',
-        description: 'Diario Deportivo',
+        name: 'gmo',
+        url: 'https://www.gmo.jp/en/',
+        description: 'Creating a simple JupyterLab plugin adding BookMark menu',
         target: 'widget'
     }
 ];
@@ -98,7 +90,7 @@ namespace Private {
 
         const {commands} = app;
         let menu:Menu = new Menu({commands});
-        menu.title.label = 'Snippets';
+        menu.title.label = 'BookMark';
         BookMarks.forEach(item => menu.addItem({command: `BookMark-${item.name}:show`}));
 
         return menu;
