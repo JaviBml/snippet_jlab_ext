@@ -1,4 +1,4 @@
-# nbrest
+# snippets_catalog
 
 ```sh
 pip install -e ./
