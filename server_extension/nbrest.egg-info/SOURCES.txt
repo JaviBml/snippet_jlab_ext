@@ -1,0 +1,8 @@
+README.md
+setup.py
+nbrest.egg-info/PKG-INFO
+nbrest.egg-info/SOURCES.txt
+nbrest.egg-info/dependency_links.txt
+nbrest.egg-info/top_level.txt
+snippets_catalog/__init__.py
+snippets_catalog/snippets_catalog.py
