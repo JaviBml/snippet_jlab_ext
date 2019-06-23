@@ -15,7 +15,7 @@ import '../style/index.css';
  * Initialization data for the jupyterlab_myext extension.
  */
 const extension: JupyterLabPlugin<void> = {
-  id: 'jupyterlab_myext',
+  id: 'jupyterlab_snippets',
   autoStart: true,
   requires: [IMainMenu, ICommandPalette],
   activate: activate_custom_menu
@@ -26,8 +26,14 @@ export default extension;
 
 export const BookMarks = [
     {
-        name: 'gmo',
-        url: 'https://www.gmo.jp/en/',
+        name: 'Clarin',
+        url: 'https://clarin.com',
+        description: 'Creating a simple JupyterLab plugin adding BookMark menu',
+        target: 'widget'
+    },
+    {
+        name: 'Ole',
+        url: 'https://ole.com',
         description: 'Creating a simple JupyterLab plugin adding BookMark menu',
         target: 'widget'
     }
@@ -90,7 +96,7 @@ namespace Private {
 
         const {commands} = app;
         let menu:Menu = new Menu({commands});
-        menu.title.label = 'BookMark';
+        menu.title.label = 'Snippets';
         BookMarks.forEach(item => menu.addItem({command: `BookMark-${item.name}:show`}));
 
         return menu;
