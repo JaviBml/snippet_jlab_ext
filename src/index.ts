@@ -4,8 +4,7 @@ import {
 
 import {IMainMenu} from '@jupyterlab/mainmenu'
 
-import { INotebookTools, INotebookTracker } from '@jupyterlab/notebook';
-
+import { INotebookTools, INotebookTracker } from '@jupyterlab/notebook'
 
 import {IFrame, ICommandPalette} from '@jupyterlab/apputils'
 
@@ -57,29 +56,23 @@ export function activate_custom_menu(app: JupyterLab, mainMenu: IMainMenu, palet
                 if (item.target == '_blank') {
                     let win = window.open(item.url, '_blank');
                     win.focus();
-                } else {
-                    var selected_cell = Jupyter.notebook.get_selected_cell();
-                    Jupyter.notebook.edit_mode();
-                    selected_cell.code_mirror.replaceSelection(snippet_code, 'around');
-                }
-                
-                // else if (item.target == 'widget') {
-                //     if (!iframe) {
-                //         iframe = new IFrame();
-                //         iframe.url = item.url;
-                //         iframe.id = item.name;
-                //         iframe.title.label = item.name;
-                //         iframe.title.closable = true;
-                //         iframe.node.style.overflowY = 'auto';
-                //     }
+                } else if (item.target == 'widget') {
+                    if (!iframe) {
+                        iframe = new IFrame();
+                        iframe.url = item.url;
+                        iframe.id = item.name;
+                        iframe.title.label = item.name;
+                        iframe.title.closable = true;
+                        iframe.node.style.overflowY = 'auto';
+                    }
 
-                //     if (iframe == null || !iframe.isAttached) {
-                //         app.shell.addToMainArea(iframe);
-                //         app.shell.activateById(iframe.id);
-                //     } else {
-                //         app.shell.activateById(iframe.id);
-                //     }
-                // }
+                    if (iframe == null || !iframe.isAttached) {
+                        app.shell.addToMainArea(iframe);
+                        app.shell.activateById(iframe.id);
+                    } else {
+                        app.shell.activateById(iframe.id);
+                    }
+                }
             }
         });
     }
